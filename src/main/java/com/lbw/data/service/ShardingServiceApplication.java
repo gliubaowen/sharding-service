@@ -6,10 +6,10 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.lbw" })
-public class DataServiceApplication {
+public class ShardingServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DataServiceApplication.class, args);
+		SpringApplication.run(ShardingServiceApplication.class, args);
 	}
 
 }

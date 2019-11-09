@@ -1,29 +1,62 @@
 spring:
-   jpa:
-      database: postgresql
-      show-sql: true
-      hibernate:
-         ddl-auto: create
-         properties:
-            hibernate:
-               jdbc:
-                  lob:
-                     non_contextual_creation: true
-   devtools:
-      restart:
-         enabled: true # 热部署开关，false即不启用热部署
-         exclude: test/** # 指定目录不更新
-#         additional-paths: src/main/java # 指定热部署的目录
+  jpa:
+#    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+      properties:
+        hibernate:
+          jdbc:
+            lob:
+              non_contextual_creation: true
+              
+  shardingsphere:
+    datasource:
+      names: ds0,ds1
+      ds0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://127.0.0.1:5432/db0
+        username: postgres
+        password: postgres
       
+      ds1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://127.0.0.1:5432/db1
+        username: postgres
+        password: postgres
+  
+    sharding:
+      default-data-source-name: ds0
+      default-database-strategy:
+        inline:
+          sharding-column: user_id
+          algorithm-expression: ds$->{user_id % 2}
+      
+      tables:
+        t_order:
+          actual-data-nodes: ds$->{0..1}.t_order_$->{000..127}
+          table-strategy:
+            inline:
+              sharding-column: order_id
+              algorithm-expression: t_order_$->{order_id % 128}
+          
+  devtools:
+    restart:
+      enabled: true # 热部署开关，false即不启用热部署
+      exclude: test/** # 指定目录不更新
+#         additional-paths: src/main/java # 指定热部署的目录
 logging:
-   path: /opt/log/common-data/
-   file: /opt/log/common-data/data-service.log
-   level:
-      root: DEBUG
+  path: /opt/log/common-data/
+  file: /opt/log/common-data/data-service.log
+  level:
+    root: DEBUG
+hibernate:
 #      org:
 #         hibernate: DEBUG
-hibernate:
-   jdbc:
-      lob:
-         non_contextual_creation: true
-         
+  jdbc:
+    lob:
+      non_contextual_creation: true
+
+

@@ -6,7 +6,6 @@ package com.lbw.data.service.repository;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 import com.lbw.data.service.entity.Customer;
 
@@ -16,7 +15,6 @@ import com.lbw.data.service.entity.Customer;
  * @author LiuBaoWen
  *
  */
-@Repository
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
 	List<Customer> findByLastName(String lastName);

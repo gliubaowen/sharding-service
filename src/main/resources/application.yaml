@@ -3,12 +3,12 @@ spring:
       database: postgresql
       show-sql: true
       hibernate:
-         ddl-auto: none
+         ddl-auto: create
          properties:
             hibernate:
                jdbc:
                   lob:
-                     non_contextual_creation: truee
+                     non_contextual_creation: true
    devtools:
       restart:
          enabled: true # 热部署开关，false即不启用热部署

@@ -3,6 +3,7 @@
  */
 package com.lbw.data.service.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -16,8 +17,11 @@ import javax.persistence.Table;
 public class Order {
 
 	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(columnDefinition = "int2")
 	private Long orderId;
 
+	@Column(columnDefinition = "int2")
 	private Long userId;
 
 	/**

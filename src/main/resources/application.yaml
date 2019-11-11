@@ -3,7 +3,7 @@ spring:
     database: postgresql
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
       properties:
         hibernate:
           jdbc:
@@ -26,7 +26,6 @@ spring:
         url: jdbc:postgresql://127.0.0.1:5432/db1
         username: postgres
         password: postgres
-  
     sharding:
       default-data-source-name: ds0
       default-database-strategy:

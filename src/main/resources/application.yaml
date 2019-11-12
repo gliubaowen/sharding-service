@@ -3,13 +3,11 @@ spring:
     database: postgresql
     show-sql: true
     hibernate:
-      ddl-auto: none
-      properties:
-        hibernate:
-          jdbc:
-            lob:
-              non_contextual_creation: true
-              
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        
   shardingsphere:
     datasource:
       names: ds0,ds1
@@ -35,11 +33,11 @@ spring:
       
       tables:
         t_order:
-          actual-data-nodes: ds$->{0..1}.t_order_$->{000..127}
+          actual-data-nodes: ds$->{0..1}.t_order_$->{0..9}
           table-strategy:
             inline:
               sharding-column: order_id
-              algorithm-expression: t_order_$->{order_id % 128}
+              algorithm-expression: t_order_$->{order_id % 10}
           
   devtools:
     restart:

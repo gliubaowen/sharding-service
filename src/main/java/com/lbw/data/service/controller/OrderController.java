@@ -24,12 +24,14 @@ public class OrderController {
 	public Object add() {
 		for (int i = 0; i < 1000; i++) {
 			Order order = new Order();
+			order.setId(Long.parseLong(i + ""));
 			order.setUserId((long) i);
 			order.setOrderId((long) i);
 			orderRepository.save(order);
 		}
 		for (int i = 1000; i < 2000; i++) {
 			Order order = new Order();
+			order.setId(Long.parseLong(i + ""));
 			order.setUserId((long) i + 1);
 			order.setOrderId((long) i);
 			orderRepository.save(order);

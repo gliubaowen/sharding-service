@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 class ShardingServiceApplicationTests {
 
 	@Test
-	public void contextLoads() {
+	public void testContextLoads() {
 		System.out.println("success!");
 	}
 

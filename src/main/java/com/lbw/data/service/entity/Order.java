@@ -27,6 +27,10 @@ public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(columnDefinition = "int8")
+	private Long id;
+
 //	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(columnDefinition = "int2")
 	private Long orderId;

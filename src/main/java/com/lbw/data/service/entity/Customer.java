@@ -28,8 +28,8 @@ public class Customer implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(columnDefinition = "int2")
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(columnDefinition = "int8")
 	private Long id;
 	@Column(columnDefinition = "varchar(20)")
 	private String firstName;
@@ -39,7 +39,8 @@ public class Customer implements Serializable {
 	protected Customer() {
 	}
 
-	public Customer(String firstName, String lastName) {
+	public Customer(Long id, String firstName, String lastName) {
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}

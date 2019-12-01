@@ -8,6 +8,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -19,7 +20,7 @@ import lombok.Data;
  *
  */
 @Entity
-@Table(name = "customer")
+@Table(name = "customer", indexes = { @Index(columnList = "id") })
 @Data
 public class Customer implements Serializable {
 

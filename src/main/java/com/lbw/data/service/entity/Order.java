@@ -8,6 +8,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -17,7 +18,7 @@ import lombok.Data;
  *
  */
 @Entity
-@Table(name = "t_order")
+@Table(name = "t_order", indexes = { @Index(columnList = "userId") })
 @Data
 public class Order implements Serializable {
 
@@ -31,11 +32,11 @@ public class Order implements Serializable {
 	@Column(columnDefinition = "int8")
 	private Long id;
 
+	@Column(columnDefinition = "int2")
+	private Long userId;
+
 //	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(columnDefinition = "int2")
 	private Long orderId;
-
-	@Column(columnDefinition = "int2")
-	private Long userId;
 
 }

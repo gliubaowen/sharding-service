@@ -20,9 +20,9 @@ import lombok.Data;
  *
  */
 @Entity
-@Table(name = "customer", indexes = { @Index(columnList = "id") })
+@Table(name = "card", indexes = { @Index(columnList = "id") })
 @Data
-public class Customer implements Serializable {
+public class Card implements Serializable {
 
 	/**
 	 * 
@@ -35,24 +35,20 @@ public class Customer implements Serializable {
 	@Column(columnDefinition = "int2")
 	private Long userId;
 	@Column(columnDefinition = "varchar(20)")
-	private String firstName;
-	@Column(columnDefinition = "varchar(20)")
-	private String lastName;
+	private String cardNo;
 
-	protected Customer() {
+	protected Card() {
 	}
 
-	public Customer(Long id, Long userId, String firstName, String lastName) {
+	public Card(Long id, Long userId, String cardNo) {
 		this.id = id;
 		this.userId = userId;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.cardNo = cardNo;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("Customer[id=%d, userId=%d, firstName='%s', lastName='%s']", id, userId, firstName,
-				lastName);
+		return String.format("Customer[id=%d, userId='%s', cardNo='%s']", id, userId, cardNo);
 	}
 
 }

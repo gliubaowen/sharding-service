@@ -8,10 +8,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQL10Dialect
-        
   shardingsphere:
     datasource:
-      names: ds0,ds1
+      names: ds0,ds1,ds2,ds3
       ds0:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: org.postgresql.Driver
@@ -24,36 +23,52 @@ spring:
         url: jdbc:postgresql://127.0.0.1:5432/db1
         username: postgres
         password: postgres
+      ds2:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://127.0.0.1:5432/db2
+        username: postgres
+        password: postgres
+      ds3:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://127.0.0.1:5432/db3
+        username: postgres
+        password: postgres
     sharding:
       default-data-source-name: ds0
       default-database-strategy:
         inline:
           sharding-column: user_id
-          algorithm-expression: ds$->{user_id % 2}
+          algorithm-expression: ds$->{user_id % 4}
       defaultTableStrategy:
         inline:
           sharding-column: order_id
           algorithm-expression: t_order_$->{order_id % 10}
-      defaultKeyGenerator:
-        type: SNOWFLAKE
-        column: id
-        
       tables:
         t_order:
-          actual-data-nodes: ds$->{0..1}.t_order_$->{0..9}
+          actual-data-nodes: ds$->{0..3}.t_order_$->{0..7}
           table-strategy:
             inline:
               sharding-column: order_id
-              algorithm-expression: t_order_$->{order_id % 10}
-          
+              algorithm-expression: t_order_$->{order_id % 8}
+        customer:
+          actual-data-nodes: ds$->{0..3}.customer_$->{0..7}
+          table-strategy:
+            inline:
+              sharding-column: id
+              algorithm-expression: customer_$->{id % 8}       
+      defaultKeyGenerator:
+        type: SNOWFLAKE
+        column: id                 
   devtools:
     restart:
       enabled: true # 热部署开关，false即不启用热部署
       exclude: test/** # 指定目录不更新
 #         additional-paths: src/main/java # 指定热部署的目录
 logging:
-  path: /opt/log/common-data/
-  file: /opt/log/common-data/data-service.log
+  path: /opt/log/sharding-service/
+  file: /opt/log/sharding-service/dsharding-service.log
   level:
     root: DEBUG
 hibernate:
@@ -62,5 +77,3 @@ hibernate:
   jdbc:
     lob:
       non_contextual_creation: true
-
-

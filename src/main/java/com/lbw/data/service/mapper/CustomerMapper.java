@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lbw.data.service.entity.Customer;
 
 /**
@@ -18,10 +19,11 @@ import com.lbw.data.service.entity.Customer;
  *
  */
 @Mapper
-public interface CustomerMapper {
+public interface CustomerMapper extends BaseMapper<Customer> {
 
 	@Select("SELECT * FROM CUSTOMER WHERE id = #{id}")
-	@Results({ @Result(property = "id", column = "id"), @Result(property = "firstName", column = "first_name"),
+	@Results({ @Result(property = "id", column = "id"), @Result(property = "userId", column = "user_id"),
+			@Result(property = "firstName", column = "first_name"),
 			@Result(property = "lastName", column = "last_name") })
 	Customer findById(@Param("id") Long id);
 

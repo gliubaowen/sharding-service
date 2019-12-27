@@ -29,11 +29,11 @@ public class CustomerRepositoryTest {
 	@Test
 	public void testDemo() {
 		// save a few customers
-		Customer save = repository.save(new Customer(1l, "Jack", "Bauer"));
-		repository.save(new Customer(2l, "Chloe", "O'Brian"));
-		repository.save(new Customer(3l, "Kim", "Bauer"));
-		repository.save(new Customer(4l, "David", "Palmer"));
-		repository.save(new Customer(5l, "Michelle", "Dessler"));
+		Customer save = repository.save(new Customer(1l, 1l, "Jack", "Bauer"));
+		repository.save(new Customer(2l, 2l, "Chloe", "O'Brian"));
+		repository.save(new Customer(3l, 3l, "Kim", "Bauer"));
+		repository.save(new Customer(4l, 4l, "David", "Palmer"));
+		repository.save(new Customer(5l, 5l, "Michelle", "Dessler"));
 
 		// fetch all customers
 		log.info("Customers found with findAll():");
@@ -71,7 +71,7 @@ public class CustomerRepositoryTest {
 	@Test
 	public void testSave() {
 		// save a few customers
-		Customer save = repository.save(new Customer(6l, "BaoWen", "Liu"));
+		Customer save = repository.save(new Customer(6l, 6l, "BaoWen", "Liu"));
 
 		Long id = save.getId();
 		// fetch an individual customer by ID

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lbw.data.service.entity.Customer;
+import com.lbw.data.service.mapper.CustomerMapper;
 import com.lbw.data.service.repository.CustomerRepository;
 
 @RestController
@@ -19,13 +20,53 @@ public class CustomerController {
 	@Autowired
 	private CustomerRepository customerRepository;
 
+	@Autowired
+	private CustomerMapper customerMapper;
+
+	@RequestMapping("/select")
+	public Object select(Long id) {
+		Customer selectById = customerMapper.selectById(id);
+		return selectById;
+	}
+
+	@RequestMapping("/add")
+	public Object add() {
+		int insert = customerMapper.insert(new Customer(1l, 1l, "BaoWen", "Liu"));
+		return insert;
+	}
+
+	@RequestMapping("/testcount")
+	public Object testcount() {
+		int count = customerMapper.count();
+		return count;
+	}
+
+	@RequestMapping("/test")
+	public Object test(Long id) {
+		Customer findById = customerMapper.findById(id);
+		return findById;
+	}
+
+	@RequestMapping("/save")
+	public Object insert() {
+		for (int i = 0; i < 100; i++) {
+			Long valueOf = Long.valueOf(i);
+			customerRepository.save(new Customer(valueOf, valueOf, "Chloe", "O'Brian"));
+		}
+		for (int i = 100; i < 200; i++) {
+			Long valueOf = Long.valueOf(i);
+			customerRepository.save(new Customer(valueOf, ++valueOf, "Chloe", "O'Brian"));
+		}
+		return "success";
+	}
+
 	@RequestMapping("/create")
 	public Object create() {
-		customerRepository.save(new Customer(1l, "Chloe", "O'Brian"));
-		customerRepository.save(new Customer(2l, "Kim", "Bauer"));
-		customerRepository.save(new Customer(3l, "David", "Palmer"));
-		customerRepository.save(new Customer(4l, "Michelle", "Dessler"));
-		customerRepository.save(new Customer(5l, "BaoWen", "Liu"));
+		customerRepository.save(new Customer(1l, 1l, "Chloe", "O'Brian"));
+		customerRepository.save(new Customer(2l, 2l, "Kim", "Bauer"));
+		customerRepository.save(new Customer(3l, 3l, "David", "Palmer"));
+		customerRepository.save(new Customer(4l, 4l, "Michelle", "Dessler"));
+		customerRepository.save(new Customer(5l, 5l, "BaoWen", "Liu"));
 		return "success";
 	}
 
@@ -57,8 +98,8 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "insert")
-	private Object insertGet(Long id, String firstName, String lastName) {
-		return customerRepository.save(new Customer(id, firstName, lastName));
+	private Object insertGet(Long id, Long userId, String firstName, String lastName) {
+		return customerRepository.save(new Customer(id, userId, firstName, lastName));
 	}
 
 	@RequestMapping(value = "insert", method = RequestMethod.POST)

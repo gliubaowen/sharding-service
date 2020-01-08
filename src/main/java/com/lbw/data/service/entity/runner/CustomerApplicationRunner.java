@@ -6,12 +6,15 @@ package com.lbw.data.service.entity.runner;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 项目启动后运行
  * 
  * @author LiuBaoWen
  *
  */
+@Slf4j
 public class CustomerApplicationRunner implements ApplicationRunner {
 
 	/**
@@ -23,10 +26,10 @@ public class CustomerApplicationRunner implements ApplicationRunner {
 	 */
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		System.out.println("通过实现ApplicationRunner接口，在spring boot项目启动后打印参数");
+		log.info("通过实现ApplicationRunner接口，在spring boot项目启动后打印参数");
 		String[] sourceArgs = args.getSourceArgs();
 		for (String arg : sourceArgs) {
-			System.out.print(arg + " ");
+			log.info(arg + " ");
 		}
 	}
 
